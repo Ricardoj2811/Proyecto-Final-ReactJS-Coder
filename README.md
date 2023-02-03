@@ -1,1 +1,1 @@
-# Bienvenidos a mi E-commerce desarrolla con React JS
+# Bienvenidos a mi E-commerce desarrollado con React JS
