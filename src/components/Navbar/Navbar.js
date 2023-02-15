@@ -3,7 +3,6 @@ import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import logo from '../../assets/logo.png';
 import CustomizedBadges from './CartWidget';
@@ -39,7 +38,7 @@ const Navbar = () => {
                         RIEM STORE
                     </Typography>
                     <NavbarItems/>
-                    <Button color="inherit"><CustomizedBadges/></Button>
+                    <CustomizedBadges/>
                 </Toolbar>
             </AppBar>
         </Box>

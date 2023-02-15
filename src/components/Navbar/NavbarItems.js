@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 
 export const NavbarItems = () => {
 
@@ -18,20 +18,35 @@ export const NavbarItems = () => {
         },
 
     }
+    const [products, setProducts] = useState([]);
+    const categories = [];
+    const [cat, setCat] = useState([]);
+    const [error, setError] = useState(false);
 
-    const MenuItems = [
-        { id: 1, name: 'Hombre', link: 'http://localhost:3000/' },
-        { id: 2, name: 'Mujer', link: 'http://localhost:3000/' },
-        { id: 3, name: 'Niños', link: 'http://localhost:3000/' },
-        { id: 4, name: 'Todo', link: 'http://localhost:3000/' }
-    ]
+    useEffect(() => {
+        const getProducts = async () => {
+            try {
+                //const res = await fetch('https://fakestoreapi.com/products');
+                const res = await fetch('./dataBase.json');
+                const data = await res.json();
+                setProducts(data);
+                products.map((item) => (
+                    (categories.findIndex(e => e.category === item.category)))===-1 && categories.push(item)
+                )
+                setCat(categories)
+            } catch {
+                setError(true);
+            }
+        }
+        getProducts();
+    }, [cat])
 
     return (
         <div>
             <ul style={style.ul}>
-                {MenuItems.map((item) => {
+                {cat.map((item) => {
                     return (
-                        <li style={style.li} key={item.id}><a style={style.a} href={item.link}>{item.name}</a></li>
+                        <li style={style.li} key={item.id}><a style={style.a} href={item.link}>{item.category}</a></li>
                     )
                 })}
             </ul>
