@@ -20,8 +20,8 @@ export const ItemListContainer = ({ greeting }) => {
 
     const [products, setProducts] = useState([]);
     const [error, setError] = useState(false);
-    const { name } = useParams();
-    const dataFiltered = (name? products.filter(e => e.category === name): products)
+    const { categoryId } = useParams();
+    const dataFiltered = (categoryId? products.filter(e => e.category === categoryId): products)
 
     useEffect(()=>{
         const getProducts = async ()=>{
@@ -36,7 +36,7 @@ export const ItemListContainer = ({ greeting }) => {
             }
         }
         getProducts();
-    }, [name])
+    }, [categoryId])
 
     return (
         <>

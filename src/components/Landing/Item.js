@@ -56,7 +56,7 @@ const Item = ({ product }) => {
                     </CardContent>
                 </CardActionArea>
             </Link>
-            <Link to={`/product/${product.id}`} style={style.link}><Button variant="contained" style={style.button}>Details</Button></Link>
+            <Link to={`/item/${product.id}`} style={style.link}><Button variant="contained" style={style.button}>Details</Button></Link>
         </Card>
     )
 }
