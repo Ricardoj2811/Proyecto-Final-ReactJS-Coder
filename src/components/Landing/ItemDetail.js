@@ -33,14 +33,14 @@ const ItemDetail = ({ title, description, price, img, stock }) => {
     const showProducts = (items) => (
         swal(`La cantidad de productos agregados al carrito son: ${items}`)
     )
-
+    
     return (
         <div style={style.container}>
             <img src={img} alt={title} style={style.img}/>
             <div style={style.containerInfo}>
                 <h2 style={style.title}>{title}</h2>
                 <p style={style.desc}>{description}</p>
-                <span style={style.price}>{price}</span>
+                <span style={style.price}>${price}</span>
                 <ItemCount stock={stock} onAdd={showProducts} />
             </div>
         </div>

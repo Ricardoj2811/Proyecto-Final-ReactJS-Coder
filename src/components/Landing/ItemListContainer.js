@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import swal from 'sweetalert'
-import ItemCount from './ItemCount'
-import { ItemDetailContainer } from './ItemDetailContainer'
+import { useParams } from 'react-router-dom'
 import ItemList from './ItemList'
+import DB from '../../dataBase.json'
 
 const style = {
     greeting: {
@@ -19,37 +18,32 @@ const style = {
 
 export const ItemListContainer = ({ greeting }) => {
 
-    const stockDB = 10
     const [products, setProducts] = useState([]);
     const [error, setError] = useState(false);
+    const { name } = useParams();
+    const dataFiltered = (name? products.filter(e => e.category === name): products)
 
     useEffect(()=>{
         const getProducts = async ()=>{
             try {
                 //const res = await fetch('https://fakestoreapi.com/products');
-                const res = await fetch('./dataBase.json');
-                const data = await res.json();
-                setProducts(data);
+                //const res = await fetch('./dataBase.json');
+                //const res = awaitdata = await res.json();
+                setProducts(DB);
             } catch {
                 setError(true);
+                console.log(error)
             }
         }
         getProducts();
-    }, [])
-    
-
-    // const showProducts = (items) => (
-    //     swal(`La cantidad de productos agregados al carrito son: ${items}`)
-    // )
+    }, [name])
 
     return (
         <>
             <div style={style.greeting}>{greeting}</div>
-            {/* <ItemCount stock={stockDB} onAdd={showProducts} /> */}
             <div style={style.container}>
-                {products.length?<ItemList products={products}/>:<h1>Cargando..</h1>}
+                {dataFiltered.length?<ItemList products={dataFiltered}/>:<h1>Cargando..</h1>}
             </div>
-            {/* <ItemDetailContainer product={products[0]}/> */}
         </>
 
     )

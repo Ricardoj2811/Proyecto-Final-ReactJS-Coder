@@ -5,8 +5,9 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import logo from '../../assets/logo.png';
-import CustomizedBadges from './CartWidget';
+import CardWidget from './CartWidget';
 import { NavbarItems } from './NavbarItems';
+import { Link } from 'react-router-dom';
 
 const Navbar = () => {
 
@@ -25,20 +26,24 @@ const Navbar = () => {
         <Box sx={{ flexGrow: 1 }}>
             <AppBar position="static" style={style.bgColor}>
                 <Toolbar>
-                    <IconButton
-                        size="large"
-                        edge="start"
-                        color="inherit"
-                        aria-label="menu"
-                        sx={{ mr: 2 }}
-                    >
-                    <img src={logo} style={style.logo}/>
-                    </IconButton>
+                    <Link to={"/"}>
+                        <IconButton
+                            size="large"
+                            edge="start"
+                            color="inherit"
+                            aria-label="menu"
+                            sx={{ mr: 2 }}
+                        >
+                        <img src={logo} style={style.logo}/>
+                        </IconButton>
+                    </Link>
                     <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
                         RIEM STORE
                     </Typography>
                     <NavbarItems/>
-                    <CustomizedBadges/>
+                    <Link to={"/cart"}>
+                        <CardWidget/>
+                    </Link>
                 </Toolbar>
             </AppBar>
         </Box>

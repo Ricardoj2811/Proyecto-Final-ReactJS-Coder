@@ -1,14 +1,14 @@
 import React, { useState } from 'react'
 import swal from 'sweetalert';
+import { Button } from '@mui/material';
 
 const style = {
     counter: {
         width: 200,
-        height: 100,
+        height: 70,
         display: 'flex',
         alignItems: 'center',
-        justifyContent: 'center',
-        border: '1px solid black',
+        justifyContent: 'center'
     },
     number: {
         marginRight: 10,
@@ -27,15 +27,16 @@ const style = {
         marginRight: 10,
         marginLeft: 10,
         width: 200,
-        height: 100,
-        fontSize: 30,
+        height: 50,
+        fontSize: 20,
         fontWeight: 'bold'
     },
     container: {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        width: '100%'
+        width: '100%',
+        margin:'20px 0'
     }
 }
 
@@ -65,11 +66,11 @@ export const ItemCount = ({ stock , onAdd} ) => {
     return (
         <div style={style.container}>
             <div style={style.counter}>
-                <button onClick={handleSubtract} style={style.button}>-</button>
+                <Button variant="outlined" onClick={handleSubtract} style={style.button}>-</Button>
                 <h1 style={style.number}>{count}</h1>
-                <button onClick={handleAdd} style={style.button}>+</button>
+                <Button variant="outlined" onClick={handleAdd} style={style.button}>+</Button>
             </div>
-            <button onClick={handleAddToCart} style={style.buttonAdd} disabled={count===0? true:false}>Agregar al Carrito</button>
+            <Button variant="contained" onClick={handleAddToCart} style={style.buttonAdd} disabled={count===0? true:false}>Add to Cart</Button>
         </div>
     )
 }
