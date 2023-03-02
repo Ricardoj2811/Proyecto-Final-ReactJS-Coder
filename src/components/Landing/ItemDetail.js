@@ -1,6 +1,9 @@
-import React from 'react'
+import { Button } from '@mui/material'
+import React, { useState, useContext } from 'react'
+import { Link } from 'react-router-dom'
 import swal from 'sweetalert'
 import ItemCount from './ItemCount'
+import { CartContext } from '../../context/CartContext'
 
 const style = {
     container: {
@@ -25,23 +28,42 @@ const style = {
     containerInfo: {
         margin: 20,
         textAlign: 'center',
+    },
+    buttonAdd: {
+        marginRight: 10,
+        marginLeft: 10,
+        width: 200,
+        height: 50,
+        fontSize: 20,
+        fontWeight: 'bold',
+        display: 'block',
+        margin: '20px auto'
+    },
+    link:{
+        color: 'white',
+        textDecoration: 'none'
     }
 }
 
-const ItemDetail = ({ title, description, price, img, stock }) => {
+const ItemDetail = ({ product }) => {
 
-    const showProducts = (items) => (
-        swal(`La cantidad de productos agregados al carrito son: ${items}`)
-    )
+    const [buttonCartStatus, setButtonCartStatus] = useState(true);
+    const { addProduct } = useContext(CartContext);
+    
+    const onAdd = (items) => {
+        swal(`La cantidad de productos agregados al carrito son: ${items}`);
+        setButtonCartStatus(false);
+        addProduct(product, items);
+    };
     
     return (
         <div style={style.container}>
-            <img src={img} alt={title} style={style.img}/>
+            <img src={product.image} alt={product.title} style={style.img}/>
             <div style={style.containerInfo}>
-                <h2 style={style.title}>{title}</h2>
-                <p style={style.desc}>{description}</p>
-                <span style={style.price}>${price}</span>
-                <ItemCount stock={stock} onAdd={showProducts} />
+                <h2 style={style.title}>{product.title}</h2>
+                <p style={style.desc}>{product.description}</p>
+                <span style={style.price}>${product.price}</span>
+                {buttonCartStatus? <ItemCount stock={product.stock} onAdd={onAdd} />: <Button variant="contained" style={style.buttonAdd}><Link style={style.link} to={'/cart'}>Go to Cart</Link></Button>}
             </div>
         </div>
         

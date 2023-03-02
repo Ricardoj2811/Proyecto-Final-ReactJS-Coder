@@ -67,7 +67,7 @@ export const ItemCount = ({ stock , onAdd} ) => {
         <div style={style.container}>
             <div style={style.counter}>
                 <Button variant="outlined" onClick={handleSubtract} style={style.button}>-</Button>
-                <h1 style={style.number}>{count}</h1>
+                <h3 style={style.number}>{count}</h3>
                 <Button variant="outlined" onClick={handleAdd} style={style.button}>+</Button>
             </div>
             <Button variant="contained" onClick={handleAddToCart} style={style.buttonAdd} disabled={count===0? true:false}>Add to Cart</Button>

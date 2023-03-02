@@ -54,3 +54,5 @@ export const NavbarItems = () => {
         </div>
     )
 }
+
+export default NavbarItems

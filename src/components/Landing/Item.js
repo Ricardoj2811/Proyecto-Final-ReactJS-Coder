@@ -38,7 +38,7 @@ const style = {
 const Item = ({ product }) => {
     return (
         <Card sx={{ maxWidth: 345 }} style={style.container}>
-            <Link to={`/product/${product.id}`} style={style.link}>
+            <Link to={`/item/${product.id}`} style={style.link}>
                 <CardActionArea>
                     <CardMedia
                         component="img"

@@ -3,6 +3,7 @@ import ItemDetail from './ItemDetail'
 import { useParams } from 'react-router-dom'
 import DB from '../../dataBase.json'
 
+
 const style = {
     container: {
         width: '100%',
@@ -34,12 +35,7 @@ export const ItemDetailContainer = () => {
 
     return (
         <div style={style.container}>
-            <ItemDetail title={products.title}
-                description={products.description}
-                img={products.image}
-                price={products.price}
-                stock={products.stock}
-            />
+            <ItemDetail product={products}/>
         </div>
     )
 }
