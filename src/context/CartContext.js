@@ -13,10 +13,9 @@ export const CartProvider = ({ children }) => {
 
     const addProduct = (product, quantity) => {
         if (isInCart(product.id)) {
-            const inCart = cart.find((item) => item.id === product.id)
             setCart(cart.map((item)=>{
                 if(item.id === product.id){
-                    return {...inCart, quantity: quantity};
+                    return {...item, quantity: quantity};
                 } else return item;
             }))
         } else {

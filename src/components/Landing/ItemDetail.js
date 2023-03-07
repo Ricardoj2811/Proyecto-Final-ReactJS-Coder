@@ -32,7 +32,7 @@ const style = {
     buttonAdd: {
         marginRight: 10,
         marginLeft: 10,
-        width: 200,
+        width: 'auto',
         height: 50,
         fontSize: 20,
         fontWeight: 'bold',
@@ -63,7 +63,7 @@ const ItemDetail = ({ product }) => {
                 <h2 style={style.title}>{product.title}</h2>
                 <p style={style.desc}>{product.description}</p>
                 <span style={style.price}>${product.price}</span>
-                {buttonCartStatus? <ItemCount stock={product.stock} onAdd={onAdd} />: <Button variant="contained" style={style.buttonAdd}><Link style={style.link} to={'/cart'}>Go to Cart</Link></Button>}
+                {buttonCartStatus? <ItemCount stock={product.stock} onAdd={onAdd} />: <Button variant="contained" style={style.buttonAdd}><Link style={style.link} to={'/cart'}>Go To Cart</Link></Button>}
             </div>
         </div>
         
