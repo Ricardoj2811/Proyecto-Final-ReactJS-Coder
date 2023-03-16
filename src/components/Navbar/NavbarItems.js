@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { NavLink } from 'react-router-dom';
-import DB from '../../dataBase.json'
+import { db } from '../../Firebase/firebase'
+import { getDocs, collection } from 'firebase/firestore'
 
 const style = {
     ul: {
@@ -15,7 +16,7 @@ const style = {
         textDecoration: 'none',
         color: 'white',
         fontWeight: 'bold',
-        fontSize:25
+        fontSize: 25
     },
 }
 
@@ -25,22 +26,17 @@ export const NavbarItems = () => {
     const [error, setError] = useState(false);
 
     useEffect(() => {
-        const getProducts = async () => {
-            try {
-                //const res = await fetch('https://fakestoreapi.com/products');
-                //const res = await fetch('./dataBase.json');
-                //const data = await res.json();
-                DB.map((item) => (
-                    (categories.findIndex(e => e.category === item.category)))===-1 && categories.push(item)
+        const productsCollection = collection(db, 'products');
+        getDocs(productsCollection)
+            .then((data) => {
+                const list = data.docs.map(product => product.data())
+                list.map((item) => (
+                    (categories.findIndex(e => e.category === item.category))) === -1 && categories.push(item)
                 )
                 setCat(categories)
-            } catch {
-                setError(true);
-                console.log(error)
-            }
-        }
-        getProducts();
-    },[])
+            })
+            .catch(() => { setError(true) })
+    }, [])
 
     return (
         <div>

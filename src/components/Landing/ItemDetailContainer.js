@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import ItemDetail from './ItemDetail'
 import { useParams } from 'react-router-dom'
-import DB from '../../dataBase.json'
+import { db } from '../../Firebase/firebase'
+import { doc, getDoc, collection } from 'firebase/firestore'
 
 
 const style = {
@@ -11,6 +12,7 @@ const style = {
         justifyContent: 'center'
     }
 }
+
 export const ItemDetailContainer = () => {
 
     const [products, setProducts] = useState([]);
@@ -18,19 +20,18 @@ export const ItemDetailContainer = () => {
     const { id } = useParams();
 
     useEffect(()=>{
-        const getProducts = async ()=>{
-            try {
-                //const res = await fetch('https://fakestoreapi.com/products');
-                //const res = await fetch('./dataBase.json');
-                //const data = await res.json();
-                const productFound = DB.find(product => product.id == id)
-                setProducts(productFound);
-            } catch {
-                setError(true);
-                console.log(error)
+        const productsCollection = collection(db, 'products');
+        const refDoc = doc(productsCollection, id)
+
+        getDoc(refDoc)
+        .then((data) => {
+            const product ={
+                ...data.data(),
+                id: data.id
             }
-        }
-        getProducts();
+            setProducts(product)
+        })
+        .catch(()=>{setError(true)})
     }, [id])
 
     return (

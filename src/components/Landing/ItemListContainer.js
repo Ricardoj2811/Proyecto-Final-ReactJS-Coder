@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import ItemList from './ItemList'
-import DB from '../../dataBase.json'
 import { db } from '../../Firebase/firebase'
 import { getDocs, collection, query, where } from 'firebase/firestore'
+import { CircularProgress } from '@mui/material'
 
 const style = {
     greeting: {
@@ -11,10 +11,12 @@ const style = {
         fontWeight: 'bold',
         marginTop: 30,
         textAlign: 'center',
-        marginBottom: 30        
+        marginBottom: 30
     },
-    container:{
-        marginTop:50
+    container: {
+        marginTop: 50,
+        display: "flex",
+        justifyContent: "center"
     }
 }
 
@@ -23,28 +25,29 @@ export const ItemListContainer = ({ greeting }) => {
     const [products, setProducts] = useState([]);
     const [error, setError] = useState(false);
     const { categoryId } = useParams();
-    const dataFiltered = (categoryId? products.filter(e => e.category === categoryId): products)
 
-    useEffect(()=>{
-        const getProducts = async ()=>{
-            try {
-                //const res = await fetch('https://fakestoreapi.com/products');
-                //const res = await fetch('./dataBase.json');
-                //const res = awaitdata = await res.json();
-                setProducts(DB);
-            } catch {
-                setError(true);
-                console.log(error)
-            }
-        }
-        getProducts();
+    useEffect(() => {
+        const productsCollection = collection(db, 'products');
+        const collectionFiltered = categoryId ? query(productsCollection, where('category', '==', categoryId)) : productsCollection;
+
+        getDocs(collectionFiltered)
+            .then((data) => {
+                const list= data.docs.map(product => {
+                    return {
+                        ...product.data(),
+                        id: product.id
+                    }
+                })
+                setProducts(list)
+            })
+            .catch(()=>{setError(true)})
     }, [categoryId])
 
     return (
         <>
             <div style={style.greeting}>{greeting}</div>
             <div style={style.container}>
-                {dataFiltered.length?<ItemList products={dataFiltered}/>:<h1>Cargando..</h1>}
+                {products.length ? <ItemList products={products} /> : <CircularProgress />}
             </div>
         </>
 

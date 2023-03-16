@@ -10,6 +10,7 @@ import Paper from '@mui/material/Paper';
 import { Button } from '@mui/material';
 import ClearIcon from '@mui/icons-material/Clear';
 import { Link } from 'react-router-dom';
+import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 
 const style = {
     container: {
