@@ -10,7 +10,6 @@ import Paper from '@mui/material/Paper';
 import { Button } from '@mui/material';
 import ClearIcon from '@mui/icons-material/Clear';
 import { Link } from 'react-router-dom';
-import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 
 const style = {
     container: {
@@ -34,11 +33,19 @@ const style = {
         fontWeight: 'bold',
         fontSize: 50,
         marginTop: 60
+    },
+    button: {
+        marginLeft: 20
+    },
+    linkText:{
+        color: 'white',
+        textDecoration: 'none'
     }
 }
 
 const Cart = () => {
-    const { cart, removeProduct, clearCart } = useContext(CartContext)
+    const { cart, total, removeProduct, clearCart } = useContext(CartContext)
+
     return (
         <>
             {cart.length ?
@@ -74,13 +81,19 @@ const Cart = () => {
                                     ))}
                                     <TableRow>
                                         <TableCell colSpan={5} align="center" style={style.rowsTitle}>Total</TableCell>
-                                        <TableCell align="center" style={style.rowsTitle}>{cart.reduce((acc, item) => acc + item.quantity * item.price, 0)}</TableCell>
+                                        <TableCell align="center" style={style.rowsTitle}>{total}</TableCell>
                                     </TableRow>
                                 </TableBody>
                             </Table>
                         </TableContainer>
-                    </div><div style={style.container}>
-                        <Button variant="contained" color="error" onClick={clearCart}>Remove All Products</Button>
+                    </div>
+                    <div style={style.container}>
+                        <Button variant="contained" color="error" onClick={clearCart} style={style.button}>
+                            Remove All Products
+                        </Button>
+                        <Button variant="contained" color="success" style={style.button}>
+                            <Link to={'/completeOrder'} style={style.linkText}>Complete your order</Link>
+                        </Button>
                     </div>
                 </>
                 : <h1 style={style.message}>You don't have any products in your Cart, to add some click <Link to={'/'}>Here</Link></h1>}

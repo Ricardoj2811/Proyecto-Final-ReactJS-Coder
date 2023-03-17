@@ -29,25 +29,37 @@ export const NavbarItems = () => {
         const productsCollection = collection(db, 'products');
         getDocs(productsCollection)
             .then((data) => {
-                const list = data.docs.map(product => product.data())
+                const list = data.docs.map(product => {
+                    return {
+                        ...product.data(),
+                        id: product.id
+                    }
+                })
                 list.map((item) => (
                     (categories.findIndex(e => e.category === item.category))) === -1 && categories.push(item)
                 )
                 setCat(categories)
             })
-            .catch(() => { setError(true) })
-    }, [])
+            .catch(() => {
+                setError(true)
+            })
+    })
 
     return (
-        <div>
-            <ul style={style.ul}>
-                {cat.map((item) => {
-                    return (
-                        <li style={style.li} key={item.id}><NavLink style={style.a} to={item.link}>{item.category}</NavLink></li>
-                    )
-                })}
-            </ul>
-        </div>
+        <>
+            {!error ? (
+                <div>
+                    <ul style={style.ul}>
+                        {cat.map((item) => {
+                            return (
+                                <li style={style.li} key={item.id}><NavLink style={style.a} to={item.link}>{item.category}</NavLink></li>
+                            )
+                        })}
+                    </ul>
+                </div>)
+                : (<h1>Ups! something went wrong</h1>)
+            }
+        </>
     )
 }
 

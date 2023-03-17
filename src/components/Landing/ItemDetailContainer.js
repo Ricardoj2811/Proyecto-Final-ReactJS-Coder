@@ -19,24 +19,29 @@ export const ItemDetailContainer = () => {
     const [error, setError] = useState(false);
     const { id } = useParams();
 
-    useEffect(()=>{
+    useEffect(() => {
         const productsCollection = collection(db, 'products');
         const refDoc = doc(productsCollection, id)
 
         getDoc(refDoc)
-        .then((data) => {
-            const product ={
-                ...data.data(),
-                id: data.id
-            }
-            setProducts(product)
-        })
-        .catch(()=>{setError(true)})
+            .then((data) => {
+                const product = {
+                    ...data.data(),
+                    id: data.id
+                }
+                setProducts(product)
+            })
+            .catch(() => { setError(true) })
     }, [id])
 
     return (
-        <div style={style.container}>
-            <ItemDetail product={products}/>
-        </div>
+        <>
+            {!error ? (
+                <div style={style.container}>
+                    <ItemDetail product={products} />
+                </div>)
+                : (<h1>Ups! something went wrong</h1>)
+            }
+        </>
     )
 }

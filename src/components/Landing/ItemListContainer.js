@@ -32,7 +32,7 @@ export const ItemListContainer = ({ greeting }) => {
 
         getDocs(collectionFiltered)
             .then((data) => {
-                const list= data.docs.map(product => {
+                const list = data.docs.map(product => {
                     return {
                         ...product.data(),
                         id: product.id
@@ -40,16 +40,20 @@ export const ItemListContainer = ({ greeting }) => {
                 })
                 setProducts(list)
             })
-            .catch(()=>{setError(true)})
+            .catch(() => { setError(true) })
     }, [categoryId])
 
     return (
         <>
             <div style={style.greeting}>{greeting}</div>
-            <div style={style.container}>
-                {products.length ? <ItemList products={products} /> : <CircularProgress />}
-            </div>
+            {!error ? (
+                <>
+                    <div style={style.container}>
+                        {products.length ? <ItemList products={products} /> : <CircularProgress />}
+                    </div>
+                </>
+            ) : (<h1>Ups! something went wrong</h1>)
+            }
         </>
-
     )
 }
