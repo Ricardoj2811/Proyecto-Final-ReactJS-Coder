@@ -43,7 +43,7 @@ const Item = ({ product }) => {
                     <CardMedia
                         component="img"
                         image={product.image}
-                        alt="green iguana"
+                        alt={product.title}
                         style={style.img}
                     />
                     <CardContent>

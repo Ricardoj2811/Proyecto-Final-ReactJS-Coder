@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import swal from 'sweetalert';
+import Swal from 'sweetalert2';
 import { Button } from '@mui/material';
 
 const style = {
@@ -47,7 +47,7 @@ export const ItemCount = ({ stock , onAdd} ) => {
         if (count < stock) {
             setCount(count + 1)
         } else {
-            swal("Oh No!", "Lo sentimos, No contamos con Stock Suficiente", "warning")
+            Swal.fire("Oh No!", "Sorry, we don't have enough stock", "warning")
         }
     };
 
@@ -55,7 +55,7 @@ export const ItemCount = ({ stock , onAdd} ) => {
         if (count > 0) {
             setCount(count - 1)
         } else {
-            swal("Ups!", "Este Numero no puede ser menor a 0", "warning")
+            Swal.fire("Ups!", "This Number cannot be less than 0", "warning")
         }
     };
 

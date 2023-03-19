@@ -34,7 +34,7 @@ const Navbar = () => {
                             aria-label="menu"
                             sx={{ mr: 2 }}
                         >
-                        <img src={logo} style={style.logo}/>
+                        <img src={logo} style={style.logo} alt="logo" />
                         </IconButton>
                     </Link>
                     <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>

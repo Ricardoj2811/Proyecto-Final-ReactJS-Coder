@@ -1,7 +1,7 @@
 import { Button } from '@mui/material'
 import React, { useState, useContext } from 'react'
 import { Link } from 'react-router-dom'
-import swal from 'sweetalert'
+import Swal from 'sweetalert2';
 import ItemCount from './ItemCount'
 import { CartContext } from '../../context/CartContext'
 
@@ -51,7 +51,7 @@ const ItemDetail = ({ product }) => {
     const { addProduct } = useContext(CartContext);
     
     const onAdd = (items) => {
-        swal(`La cantidad de productos agregados al carrito son: ${items}`);
+        Swal.fire("Excellent",`You just added ${items} products to cart`, "success");
         setButtonCartStatus(false);
         addProduct(product, items);
     };
