@@ -34,6 +34,7 @@ const CompleteOrder = () => {
     const { cart, total, onlyClearCart } = useContext(CartContext)
     const [buyer, setBuyer] = useState({})
     const [error, setError] = useState(false);
+    const [button, setButton] = useState(false);
     const navigate = useNavigate();
     let id;
 
@@ -69,7 +70,7 @@ const CompleteOrder = () => {
         })
     }
 
-    const handleOnChange = (e) => {
+    const handlerOnBlur = (e) => {
         let key = e.target.id
         if (key === "firstName") {
             setBuyer({
@@ -86,36 +87,57 @@ const CompleteOrder = () => {
                 ...buyer,
                 phone: e.target.value
             })
-        }
-        else {
+        } else if (key === "email") {
             setBuyer({
                 ...buyer,
                 email: e.target.value
             })
+        } else {
+            setBuyer({
+                ...buyer,
+                emailVerificacion: e.target.value
+            })
         }
+
+        validateForm()
+        console.log(buyer)
+
     }
 
+    const validateForm = () => {
+        if (buyer.firstName && buyer.lastName && buyer.phone && buyer.email && buyer.emailVerificacion && buyer.emailVerificacion === buyer.email && cart.length > 0) {
+            setButton(true)
+        }else{
+            setButton(false)
+        }
+    }
+    
     return (
         <>
             {!error ? (
                 <div style={style.container}>
                     <FormControl style={style.form}>
                         <InputLabel htmlFor="firstName" style={style.inputText}>Firts Name</InputLabel>
-                        <Input id="firstName" type="text" style={style.input} onChange={handleOnChange}></Input>
+                        <Input id="firstName" type="text" style={style.input} onBlur={handlerOnBlur}></Input>
                     </FormControl>
                     <FormControl style={style.form}>
                         <InputLabel htmlFor="lastName" style={style.inputText}>Last Name</InputLabel>
-                        <Input id="lastName" type="text" style={style.input} onChange={handleOnChange}></Input>
+                        <Input id="lastName" type="text" style={style.input} onBlur={handlerOnBlur}></Input>
                     </FormControl>
                     <FormControl style={style.form}>
-                        <InputLabel htmlFor="phone" style={style.inputText}>Last Name</InputLabel>
-                        <Input id="phone" type="number" style={style.input} onChange={handleOnChange}></Input>
+                    <InputLabel htmlFor="v" style={style.inputText}>Phone Number</InputLabel>
+                        <Input id="phone" type="number" style={style.input} onBlur={handlerOnBlur}></Input>
                     </FormControl>
                     <FormControl style={style.form}>
-                        <InputLabel htmlFor="email" style={style.inputText}>Phone Number</InputLabel>
-                        <Input id="email" type="email" style={style.input} onChange={handleOnChange}></Input>
+                        <InputLabel htmlFor="email" style={style.inputText}>Email</InputLabel>
+                        <Input id="email1" type="email" style={style.input} onBlur={handlerOnBlur}></Input>
                     </FormControl>
-                    <Button variant="contained" color="primary" onClick={handleOrder} style={style.button}>
+                    <FormControl style={style.form}>
+                        <InputLabel htmlFor="emailVerification" style={style.inputText}>Email Verification</InputLabel>
+                        <Input id="emailVerification" type="email" style={style.input} onBlur={handlerOnBlur}></Input>
+                    </FormControl>
+
+                    <Button variant="contained" color="primary" onClick={handleOrder} style={style.button} disabled={!button}>
                         Submit
                     </Button>
                 </div>

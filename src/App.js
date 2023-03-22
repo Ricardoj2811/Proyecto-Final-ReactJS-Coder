@@ -2,8 +2,8 @@ import React from 'react';
 import { ItemListContainer } from './components/Landing/ItemListContainer';
 import Navbar from "./components/Navbar/Navbar";
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { ItemDetailContainer } from './components/Landing/ItemDetailContainer';
-import Cart from './components/Landing/Cart';
+import { ItemDetailContainer } from './components/ProductDetail/ItemDetailContainer';
+import Cart from './components/Cart/Cart';
 import { CartProvider } from './context/CartContext';
 import CompleteOrder from './components/Cart/CompleteOrder';
 

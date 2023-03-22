@@ -1,32 +1,30 @@
-# Bienvenidos a mi E-commerce desarrollado con React JS
+<h1 align="center">Welcome to Riem Store 
+</h1>
+<p align="center">
+  <img height="auto" width="400px" src="https://res.cloudinary.com/dyjkosr1l/image/upload/v1672758455/e-commerce/logo_fann1w.png" />
+<p align="center">
+<br />
+<br />
+ 
+> This is an ecommerce developed with React JS as a final project for the approval of the coderhouse course
 
-#Esto es como un h1
-##Estos es como un h2
-###Esto es como un h3
+## 🎛 Tech Stack 
+* React JS
+* React Router Dom
+* Material UI (To add styles to components)
+* Sweet Alert 2 (To add stylized alerts to user actions)
+* Firebase/Firestore (To handle the backend)
+  
+## 🧿 What can you do in this project?
+ 
+* Filter products by category
+* Make purchase orders with your data
+* Edit your products in the cart
+* Receive your purchase ID
+* From firestore you can manage the stock of your product, add new products, change product information, etc.
 
-Esto es como un p
+## 📜  Information
 
-En este proyecto se instalo
-* rrd
-* firebase
-* bootstrap
-* Material UI
+[Link to the Web App](https://luxury-dolphin-600000.netlify.app/)
 
-Pasos para reproducirlo en tu local
-1. Clona el repo
-2. Un npm i
-3. un npm start
-4. Abrir en el navegador 
-
-``` Texto ```
->Texto
-
-Links como etiquetas a en html
-[Este enlace lleva al repo](https://github.com/Ricardoj2811/Proyecto-Final-ReactJS-Coder)
-
-**Este sirve para negritas**
-
-*Este es para italica*
-
-Este es para las imagenes
-![Imagen error](https://res.cloudinary.com/dyjkosr1l/image/upload/v1669755674/sample.jpg)
+[Link to the GitHub repository](https://github.com/Ricardoj2811/Proyecto-Final-ReactJS-Coder)
