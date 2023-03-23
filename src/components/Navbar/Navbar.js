@@ -4,7 +4,6 @@ import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
-import logo from '../../assets/logo.png';
 import CardWidget from './CartWidget';
 import { NavbarItems } from './NavbarItems';
 import { Link } from 'react-router-dom';
@@ -34,7 +33,7 @@ const Navbar = () => {
                             aria-label="menu"
                             sx={{ mr: 2 }}
                         >
-                        <img src={logo} style={style.logo} alt="logo" />
+                        <img src="https://res.cloudinary.com/dyjkosr1l/image/upload/v1672758455/e-commerce/logo_fann1w.png" style={style.logo} alt="logo" />
                         </IconButton>
                     </Link>
                     <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>

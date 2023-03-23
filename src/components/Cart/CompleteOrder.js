@@ -101,7 +101,6 @@ const CompleteOrder = () => {
 
         validateForm()
         console.log(buyer)
-
     }
 
     const validateForm = () => {
@@ -111,7 +110,7 @@ const CompleteOrder = () => {
             setButton(false)
         }
     }
-    
+
     return (
         <>
             {!error ? (
@@ -130,13 +129,12 @@ const CompleteOrder = () => {
                     </FormControl>
                     <FormControl style={style.form}>
                         <InputLabel htmlFor="email" style={style.inputText}>Email</InputLabel>
-                        <Input id="email1" type="email" style={style.input} onBlur={handlerOnBlur}></Input>
+                        <Input id="email" type="email" style={style.input} onBlur={handlerOnBlur}></Input>
                     </FormControl>
                     <FormControl style={style.form}>
                         <InputLabel htmlFor="emailVerification" style={style.inputText}>Email Verification</InputLabel>
                         <Input id="emailVerification" type="email" style={style.input} onBlur={handlerOnBlur}></Input>
                     </FormControl>
-
                     <Button variant="contained" color="primary" onClick={handleOrder} style={style.button} disabled={!button}>
                         Submit
                     </Button>

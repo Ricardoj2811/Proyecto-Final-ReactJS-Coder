@@ -25,6 +25,6 @@
 
 ## 📜  Information
 
-[Link to the Web App](https://luxury-dolphin-600000.netlify.app/)
+[Link to the Web App](https://riemstore.netlify.app/)
 
 [Link to the GitHub repository](https://github.com/Ricardoj2811/Proyecto-Final-ReactJS-Coder)
