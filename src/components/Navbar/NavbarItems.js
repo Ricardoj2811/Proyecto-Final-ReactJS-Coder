@@ -21,11 +21,11 @@ const style = {
 }
 
 export const NavbarItems = () => {
-    const categories = [];
     const [cat, setCat] = useState([]);
     const [error, setError] = useState(false);
 
     useEffect(() => {
+        const categories = [];
         const productsCollection = collection(db, 'products');
         getDocs(productsCollection)
             .then((data) => {
@@ -43,7 +43,7 @@ export const NavbarItems = () => {
             .catch(() => {
                 setError(true)
             })
-    })
+    }, [setCat])
 
     return (
         <>
