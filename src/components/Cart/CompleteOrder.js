@@ -34,33 +34,37 @@ const CompleteOrder = () => {
     const { cart, total, onlyClearCart } = useContext(CartContext)
     const [buyer, setBuyer] = useState({})
     const [error, setError] = useState(false);
-    const [button, setButton] = useState(false);
     const navigate = useNavigate();
     let id;
 
-    const handleOrder = () => {
-        const sellCollection = collection(db, 'sells')
-        addDoc(sellCollection, {
-            buyer,
-            items: cart,
-            total,
-            time: serverTimestamp()
-        })
-            .then(result => {
-                id = result.id
-                Swal.fire({
-                    title: `Excellent your order have been received, here is your ID ${id} Please save it`,
-                    confirmButtonText: 'Continue Shopping'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        navigate("/");
-                        onlyClearCart()
-                    }
-                })
+    const handleOrder = (e) => {
+        e.preventDefault();
+        if (validateForm()) {
+            const sellCollection = collection(db, 'sells')
+            addDoc(sellCollection, {
+                buyer,
+                items: cart,
+                total,
+                time: serverTimestamp()
             })
-            .catch(() => { setError(true) })
+                .then(result => {
+                    id = result.id
+                    Swal.fire({
+                        title: `Excellent your order have been received, here is your ID ${id} Please save it`,
+                        confirmButtonText: 'Continue Shopping'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            navigate("/");
+                            onlyClearCart()
+                        }
+                    })
+                })
+                .catch(() => { setError(true) })
 
-        handlerStock();
+            handlerStock();
+        } else {
+            Swal.fire("Ups!", "One of the form fields is empty or the emails do not match", "error")
+        }
     }
 
     const handlerStock = () => {
@@ -71,43 +75,19 @@ const CompleteOrder = () => {
     }
 
     const handlerOnBlur = (e) => {
-        let key = e.target.id
-        if (key === "firstName") {
-            setBuyer({
-                ...buyer,
-                firstName: e.target.value
-            })
-        } else if (key === "lastName") {
-            setBuyer({
-                ...buyer,
-                lastName: e.target.value
-            })
-        } else if (key === "phone") {
-            setBuyer({
-                ...buyer,
-                phone: e.target.value
-            })
-        } else if (key === "email") {
-            setBuyer({
-                ...buyer,
-                email: e.target.value
-            })
-        } else {
-            setBuyer({
-                ...buyer,
-                emailVerificacion: e.target.value
-            })
-        }
-
-        validateForm()
-        console.log(buyer)
+        const key = e.target.id
+        const value = e.target.value
+        setBuyer((prevBuyer) => ({
+            ...prevBuyer,
+            [key]: value
+        }));
     }
 
     const validateForm = () => {
-        if (buyer.firstName && buyer.lastName && buyer.phone && buyer.email && buyer.emailVerificacion && buyer.emailVerificacion === buyer.email && cart.length > 0) {
-            setButton(true)
-        }else{
-            setButton(false)
+        if (buyer.firstName && buyer.lastName && buyer.phone && buyer.email && buyer.emailVerification && buyer.emailVerification === buyer.email && cart.length > 0) {
+            return true
+        } else {
+            return false
         }
     }
 
@@ -117,25 +97,25 @@ const CompleteOrder = () => {
                 <div style={style.container}>
                     <FormControl style={style.form}>
                         <InputLabel htmlFor="firstName" style={style.inputText}>Firts Name</InputLabel>
-                        <Input id="firstName" type="text" style={style.input} onBlur={handlerOnBlur}></Input>
+                        <Input id="firstName" type="text" style={style.input} onChange={handlerOnBlur}></Input>
                     </FormControl>
                     <FormControl style={style.form}>
                         <InputLabel htmlFor="lastName" style={style.inputText}>Last Name</InputLabel>
-                        <Input id="lastName" type="text" style={style.input} onBlur={handlerOnBlur}></Input>
+                        <Input id="lastName" type="text" style={style.input} onChange={handlerOnBlur}></Input>
                     </FormControl>
                     <FormControl style={style.form}>
-                    <InputLabel htmlFor="v" style={style.inputText}>Phone Number</InputLabel>
-                        <Input id="phone" type="number" style={style.input} onBlur={handlerOnBlur}></Input>
+                        <InputLabel htmlFor="v" style={style.inputText}>Phone Number</InputLabel>
+                        <Input id="phone" type="number" style={style.input} onChange={handlerOnBlur}></Input>
                     </FormControl>
                     <FormControl style={style.form}>
                         <InputLabel htmlFor="email" style={style.inputText}>Email</InputLabel>
-                        <Input id="email" type="email" style={style.input} onBlur={handlerOnBlur}></Input>
+                        <Input id="email" type="email" style={style.input} onChange={handlerOnBlur}></Input>
                     </FormControl>
                     <FormControl style={style.form}>
                         <InputLabel htmlFor="emailVerification" style={style.inputText}>Email Verification</InputLabel>
-                        <Input id="emailVerification" type="email" style={style.input} onBlur={handlerOnBlur}></Input>
+                        <Input id="emailVerification" type="email" style={style.input} onChange={handlerOnBlur}></Input>
                     </FormControl>
-                    <Button variant="contained" color="primary" onClick={handleOrder} style={style.button} disabled={!button}>
+                    <Button variant="contained" color="primary" type="submit" onClick={handleOrder} style={style.button}>
                         Submit
                     </Button>
                 </div>
