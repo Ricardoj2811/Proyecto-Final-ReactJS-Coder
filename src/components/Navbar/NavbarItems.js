@@ -27,6 +27,7 @@ export const NavbarItems = () => {
     useEffect(() => {
         const categories = [];
         const productsCollection = collection(db, 'products');
+        
         getDocs(productsCollection)
             .then((data) => {
                 const list = data.docs.map(product => {
